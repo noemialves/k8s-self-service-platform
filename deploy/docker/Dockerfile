@@ -1,0 +1,7 @@
+FROM golang:1.22-alpine
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN go build -o /usr/local/bin/k8s-self-service-platform ./cmd/api
+CMD ["/usr/local/bin/k8s-self-service-platform"]
