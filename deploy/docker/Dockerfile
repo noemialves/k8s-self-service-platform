@@ -1,7 +1,13 @@
-FROM golang:1.22-alpine
+FROM python:3.12-slim
+
 WORKDIR /app
-COPY go.mod go.sum ./
-RUN go mod download
-COPY . .
-RUN go build -o /usr/local/bin/k8s-self-service-platform ./cmd/api
-CMD ["/usr/local/bin/k8s-self-service-platform"]
+
+ENV PYTHONUNBUFFERED=1
+ENV HOST=0.0.0.0
+ENV PORT=8080
+
+COPY app ./app
+
+EXPOSE 8080
+
+CMD ["python", "-m", "app"]

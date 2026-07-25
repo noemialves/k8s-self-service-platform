@@ -14,6 +14,14 @@ spec:
     spec:
       containers:
         - name: app
-          image: nginx:latest
+          image: k8s-self-service-platform:latest
           ports:
-            - containerPort: 80
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /environment
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /environment
+              port: 8080
